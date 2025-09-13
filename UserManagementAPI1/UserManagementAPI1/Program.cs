@@ -16,6 +16,7 @@ builder.Services.AddAuthentication("Bearer")
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
+            ClockSkew=TimeSpan.Zero,
             ValidateIssuerSigningKey = true,
             ValidIssuer = "tu_issuer",
             ValidAudience = "tu_audience",
@@ -59,3 +60,4 @@ app.MapControllers();
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
+
