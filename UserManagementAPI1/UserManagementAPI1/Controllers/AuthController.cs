@@ -32,7 +32,7 @@ namespace UserApi.Controllers
                 issuer: "tu_issuer",
                 audience: "tu_audience",
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
+                expires: DateTime.UtcNow.AddMinutes(10),
                 signingCredentials: creds
             );
 
@@ -42,3 +42,4 @@ namespace UserApi.Controllers
         }
     }
 }
+
