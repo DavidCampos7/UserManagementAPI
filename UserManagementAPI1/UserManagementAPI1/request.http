@@ -1,0 +1,122 @@
+@token= eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdHVzZXIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJleHAiOjE3NTc3NDAxNzksImlzcyI6InR1X2lzc3VlciIsImF1ZCI6InR1X2F1ZGllbmNlIn0.6cOEVQfZDm9DRJoJUzJcO-9PIfRbyU59JTADoKRi9Sc
+### Autenticación y obtención de token
+POST http://localhost:5290/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "testpassword"
+}
+
+
+### Obtener todos los usuarios con token
+GET http://localhost:5290/api/users
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener usuario existente por ID
+GET http://localhost:5290/api/users/1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener usuario inexistente por ID (debe fallar)
+GET http://localhost:5290/api/users/999
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### Crear usuario válido
+POST http://localhost:5290/api/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id": 3,
+  "name": "Charlie",
+  "email": "charlie@company.com",
+  "department": "Ventas"
+}
+
+###
+
+### Crear usuario con datos incompletos (debe fallar)
+POST http://localhost:5290/api/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id": 4,
+  "name": "",
+  "email": "noemail",
+  "department": ""
+}
+
+###
+
+### Actualizar usuario existente
+PUT http://localhost:5290/api/users/3
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id": 3,
+  "name": "Charlie Updated",
+  "email": "charlieupdated@company.com",
+  "department": "Marketing"
+}
+
+###
+
+### Actualizar usuario inexistente (debe fallar)
+PUT http://localhost:5290/api/users/999
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "id": 999,
+  "name": "Ghost",
+  "email": "ghost@company.com",
+  "department": "Unknown"
+}
+
+###
+
+### Eliminar usuario existente
+DELETE http://localhost:5290/api/users/3
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### Eliminar usuario inexistente (debe fallar)
+DELETE http://localhost:5290/api/users/999
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### Probar middleware de error
+GET http://localhost:5290/api/users/test-error
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener usuarios sin token (debe fallar)
+GET http://localhost:5290/api/users
+Accept: application/json
+
+### 🔐 Probar endpoint seguro
+GET http://localhost:5290/api/users/secure-check
+Authorization: Bearer {{token}}
+Accept: application/json
