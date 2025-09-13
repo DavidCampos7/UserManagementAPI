@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,9 +11,6 @@ namespace UserApi.Middleware
     public class TokenValidationMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly string _issuer = "tu_issuer";
-        private readonly string _audience = "tu_audience";
-        private readonly string _secretKey = "EsteEsUnSecretoMuySeguroYConMásDe32Caracteres";
 
         public TokenValidationMiddleware(RequestDelegate next)
         {
@@ -29,6 +26,8 @@ namespace UserApi.Middleware
 
             await _next(context);
         }
-
     }
+
 }
+
+
